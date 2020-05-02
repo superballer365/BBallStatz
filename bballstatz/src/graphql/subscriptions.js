@@ -7,6 +7,11 @@ export const onCreatePlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;
@@ -16,6 +21,11 @@ export const onUpdatePlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;
@@ -25,6 +35,11 @@ export const onDeletePlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;

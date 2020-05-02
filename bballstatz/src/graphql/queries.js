@@ -7,6 +7,11 @@ export const getPlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;
@@ -21,6 +26,11 @@ export const listPlayers = /* GraphQL */ `
         id
         firstName
         lastName
+        perGameStats {
+          points
+          rebounds
+          assists
+        }
       }
       nextToken
     }

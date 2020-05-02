@@ -2,4 +2,11 @@ type Player @model {
   id: ID!
   firstName: String!
   lastName: String!
+  perGameStats: PerGameStats @function(name: "statsFunctionResolver-${env}")
+}
+
+type PerGameStats {
+  points: Float!
+  rebounds: Float!
+  assists: Float!
 }

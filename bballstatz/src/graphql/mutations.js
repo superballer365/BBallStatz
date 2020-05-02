@@ -10,6 +10,11 @@ export const createPlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;
@@ -22,6 +27,11 @@ export const updatePlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;
@@ -34,6 +44,11 @@ export const deletePlayer = /* GraphQL */ `
       id
       firstName
       lastName
+      perGameStats {
+        points
+        rebounds
+        assists
+      }
     }
   }
 `;
