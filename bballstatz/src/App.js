@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+// We will create these two pages in a moment
+import Home from "./Components/Home/Home";
+import PlayerStats from "./Components/PlayerStats/PlayerStats";
+import TeamStats from "./Components/TeamStats/TeamStats";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserAlt, faHome, faUsers } from "@fortawesome/free-solid-svg-icons";
+import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 
-function App() {
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Route
+        render={({ location, history }) => (
+          <React.Fragment>
+            <SideNav
+              onSelect={selected => {
+                const to = "/" + selected;
+                if (location.pathname !== to) {
+                  history.push(to);
+                }
+              }}
+            >
+              <SideNav.Toggle />
+              <SideNav.Nav defaultSelected="">
+                <NavItem eventKey="">
+                  <NavIcon>
+                    <FontAwesomeIcon icon={faHome} />
+                  </NavIcon>
+                  <NavText>Home</NavText>
+                </NavItem>
+                <NavItem eventKey="PlayerStats">
+                  <NavIcon>
+                    <FontAwesomeIcon icon={faUserAlt} />
+                  </NavIcon>
+                  <NavText>Player Stats</NavText>
+                </NavItem>
+                <NavItem eventKey="TeamStats">
+                  <NavIcon>
+                    <FontAwesomeIcon icon={faUsers} />
+                  </NavIcon>
+                  <NavText>Team Stats</NavText>
+                </NavItem>
+              </SideNav.Nav>
+            </SideNav>
+            <main>
+              <Route path="/" exact component={props => <Home />} />
+              <Route path="/PlayerStats" component={props => <PlayerStats />} />
+              <Route path="/TeamStats" component={props => <TeamStats />} />
+            </main>
+          </React.Fragment>
+        )}
+      />
+    </Router>
   );
 }
-
-export default App;
