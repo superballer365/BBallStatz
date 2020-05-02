@@ -6,6 +6,8 @@ import * as serviceWorker from "./serviceWorker";
 import awsmobile from "./aws-exports";
 import Amplify from "aws-amplify";
 
+console.log("config:");
+console.log(awsmobile);
 Amplify.configure(awsmobile);
 
 ReactDOM.render(
