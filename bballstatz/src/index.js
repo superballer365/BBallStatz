@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import awsmobile from "./aws-exports";
 import Amplify from "aws-amplify";
 
+awsmobile.aws_appsync_authenticationType = "API_KEY";
 console.log("config:");
 console.log(awsmobile);
 Amplify.configure(awsmobile);
