@@ -1,0 +1,5 @@
+type Player @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
