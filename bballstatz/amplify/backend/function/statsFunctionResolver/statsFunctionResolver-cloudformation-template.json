@@ -68,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-bballstatz-dev-191447-deployment",
-					"S3Key": "amplify-builds/statsFunctionResolver-6f456a74596863425a69-build.zip"
+					"S3Key": "amplify-builds/statsFunctionResolver-577031784a796f47495a-build.zip"
 				}
 			}
 		},
