@@ -11,7 +11,7 @@ function round(num) {
 function Player(props) {
   const [stats, setStats] = useState(undefined);
   const [loadingStats, setLoadingStats] = useState(true);
-  const { name, id } = props;
+  const { firstName, lastName, id } = props;
 
   useEffect(() => {
     const fetchPlayerStats = async () => {
@@ -29,8 +29,11 @@ function Player(props) {
 
   return (
     <div className="container">
-      <img className="playerImage" src={BlankPlayer} />
-      <p>{name}</p>
+      <img
+        className="playerImage"
+        src={`https://nba-players.herokuapp.com/players/${lastName}/${firstName}`}
+      />
+      <p>{`${firstName} ${lastName}`}</p>
       {loadingStats || !stats ? (
         <div>...Loading player stats</div>
       ) : (

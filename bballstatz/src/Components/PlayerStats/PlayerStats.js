@@ -32,7 +32,8 @@ function PlayerStats() {
         players.map(player => (
           <Player
             key={player.id}
-            name={`${player.firstName} ${player.lastName}`}
+            firstName={player.firstName}
+            lastName={player.lastName}
             id={player.id}
           />
         ))
