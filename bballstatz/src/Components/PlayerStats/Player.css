@@ -1,8 +1,19 @@
 .container {
+  align-content: center;
   text-align: center;
 }
 
 .playerImage {
   height: 100px;
   width: 130px;
+}
+
+.blankPlayerImage {
+  height: 100px;
+  width: 100px;
+}
+
+.MuiAutocomplete-root {
+  margin: auto;
+  width: 200px;
 }

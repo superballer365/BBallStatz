@@ -4,9 +4,11 @@ import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as customQueries from "../../graphql/customQueries";
 import Player from "./Player";
+import Button from "@material-ui/core/Button";
 
 function PlayerStats() {
   const [players, setPlayers] = useState([]);
+  const [selectedPlayers, setSelectedPlayers] = useState([{ undefined }]);
   const [loadingPlayers, setLoadingPlayers] = useState(false);
 
   useEffect(() => {
@@ -15,8 +17,6 @@ function PlayerStats() {
       const players = await API.graphql(
         graphqlOperation(customQueries.listPlayersNamesAndIds)
       );
-      console.log("Players:");
-      console.log(players);
       setLoadingPlayers(false);
       setPlayers(players.data.listPlayers.items);
     };
@@ -29,15 +29,13 @@ function PlayerStats() {
       {loadingPlayers ? (
         <div>...Loading</div>
       ) : (
-        players.map(player => (
-          <Player
-            key={player.id}
-            firstName={player.firstName}
-            lastName={player.lastName}
-            id={player.id}
-          />
+        selectedPlayers.map((player, index) => (
+          <Player key={index} players={players} />
         ))
       )}
+      {/*<Button variant="contained" color="primary">
+        Add Player
+        </Button>*/}
     </div>
   );
 }
