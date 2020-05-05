@@ -15,7 +15,9 @@ function PlayerStats() {
     const fetchPlayerData = async () => {
       setLoadingPlayers(true);
       const players = await API.graphql(
-        graphqlOperation(customQueries.listPlayersNamesAndIds)
+        graphqlOperation(customQueries.listPlayersNamesAndIds, {
+          limit: 1000
+        })
       );
       setLoadingPlayers(false);
       setPlayers(players.data.listPlayers.items);
