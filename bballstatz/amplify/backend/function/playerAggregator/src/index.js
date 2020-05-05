@@ -52,7 +52,7 @@ async function getTeamDict() {
   try {
     console.log("year:" + year);
     const allGames = await axios({
-      url: `http://api.sportradar.us/nba/trial/v5/en/games/${year}/REG/schedule.json?api_key=4kfpcdnf83bx43bj9gjucfym`,
+      url: `http://api.sportradar.us/nba/trial/v5/en/games/${year}/REG/schedule.json?api_key=${process.env.SPORTSRADAR_APIKEY}`,
       method: "get"
     });
 
@@ -77,7 +77,7 @@ async function getAllPlayers(teamIdToNameDict) {
       await sleep(1100);
       console.log("about to request team: " + id);
       const teamData = await axios({
-        url: `http://api.sportradar.us//nba/trial/v5/en/teams/${id}/profile.json?api_key=4kfpcdnf83bx43bj9gjucfym`,
+        url: `http://api.sportradar.us//nba/trial/v5/en/teams/${id}/profile.json?api_key=${process.env.}`,
         method: "get"
       });
 
@@ -117,7 +117,7 @@ async function addPlayersToDb(players) {
       url: process.env.API_BBALLSTATZGRAPHQLAPI_GRAPHQLAPIENDPOINTOUTPUT,
       method: "post",
       headers: {
-        "x-api-key": `PLACEHOLDER`
+        "x-api-key": process.env.API_BBALLSTATZGRAPHQLAPI_GRAPHQLAPIEKEY
       },
       data: {
         query: print(createPlayer),
