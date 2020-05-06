@@ -25,6 +25,10 @@ function PlayerStats() {
     fetchPlayerData();
   }, []);
 
+  const onAddPlayer = () => {
+    setSelectedPlayers(selectedPlayers.concat({}));
+  };
+
   return (
     <div className="container">
       <h1>Player Stats!!!</h1>
@@ -40,9 +44,9 @@ function PlayerStats() {
           />
         ))
       )}
-      {/*<Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" onClick={onAddPlayer}>
         Add Player
-        </Button>*/}
+      </Button>
     </div>
   );
 }
