@@ -32,7 +32,12 @@ function PlayerStats() {
         <div>...Loading</div>
       ) : (
         selectedPlayers.map((player, index) => (
-          <Player key={index} players={players} />
+          <Player
+            key={index}
+            players={players.sort((playerA, playerB) =>
+              playerA.firstName > playerB.firstName ? 1 : -1
+            )}
+          />
         ))
       )}
       {/*<Button variant="contained" color="primary">
