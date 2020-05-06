@@ -6,9 +6,17 @@ import * as customQueries from "../../graphql/customQueries";
 import Player from "./Player";
 import Button from "@material-ui/core/Button";
 
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
 function PlayerStats() {
   const [players, setPlayers] = useState([]);
-  const [selectedPlayers, setSelectedPlayers] = useState([{ undefined }]);
+  const [selectedPlayers, setSelectedPlayers] = useState([{ id: uuidv4() }]);
   const [loadingPlayers, setLoadingPlayers] = useState(false);
 
   useEffect(() => {
@@ -26,7 +34,12 @@ function PlayerStats() {
   }, []);
 
   const onAddPlayer = () => {
-    setSelectedPlayers(selectedPlayers.concat({}));
+    setSelectedPlayers(selectedPlayers.concat({ id: uuidv4() }));
+  };
+
+  const onRemovePlayerClick = listId => {
+    console.log(`removing playerz ${listId}`);
+    setSelectedPlayers(selectedPlayers.filter(player => player.id !== listId));
   };
 
   return (
@@ -35,14 +48,18 @@ function PlayerStats() {
       {loadingPlayers ? (
         <div>...Loading</div>
       ) : (
-        selectedPlayers.map((player, index) => (
-          <Player
-            key={index}
-            players={players.sort((playerA, playerB) =>
-              playerA.firstName > playerB.firstName ? 1 : -1
-            )}
-          />
-        ))
+        <div className="players">
+          {selectedPlayers.map(player => (
+            <Player
+              key={player.id}
+              listId={player.id}
+              onRemovePlayer={onRemovePlayerClick}
+              players={players.sort((playerA, playerB) =>
+                playerA.firstName > playerB.firstName ? 1 : -1
+              )}
+            />
+          ))}
+        </div>
       )}
       <Button variant="contained" color="primary" onClick={onAddPlayer}>
         Add Player

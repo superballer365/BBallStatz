@@ -5,6 +5,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import Button from "@material-ui/core/Button";
 
 function round(num) {
   return Math.round(num * 10) / 10;
@@ -37,14 +38,25 @@ function Player(props) {
 
   return (
     <div className="container">
-      <img
-        className={player ? "playerImage" : "blankPlayerImage"}
-        src={
-          player
-            ? `https://nba-players.herokuapp.com/players/${player.lastName}/${player.firstName}`
-            : BlankPlayer
-        }
-      />
+      <div className="playerImageContainer">
+        <Button
+          className="removeButton"
+          variant="contained"
+          color="primary"
+          onClick={() => props.onRemovePlayer(props.listId)}
+        >
+          X
+        </Button>
+        <img
+          className={player ? "playerImage" : "blankPlayerImage"}
+          src={
+            player
+              ? `https://nba-players.herokuapp.com/players/${player.lastName}/${player.firstName}`
+              : BlankPlayer
+          }
+        />
+      </div>
+
       <Autocomplete
         options={players}
         getOptionLabel={player => `${player.firstName} ${player.lastName}`}

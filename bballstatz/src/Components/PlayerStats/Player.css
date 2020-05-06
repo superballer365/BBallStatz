@@ -1,6 +1,12 @@
 .container {
   align-content: center;
   text-align: center;
+  margin: 10px;
+  min-height: 300px;
+}
+
+.playerImageContainer {
+  position: relative;
 }
 
 .playerImage {
@@ -11,6 +17,12 @@
 .blankPlayerImage {
   height: 100px;
   width: 100px;
+}
+
+.removeButton {
+  position: absolute !important;
+  top: 0;
+  right: 0;
 }
 
 .MuiAutocomplete-root {
