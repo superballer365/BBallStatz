@@ -1,8 +1,11 @@
 .container {
   text-align: center;
+  color: #0b3263;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .players {
+  margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -17,6 +17,7 @@ export default function App() {
         render={({ location, history }) => (
           <React.Fragment>
             <SideNav
+              style={{ backgroundColor: "#0B3263" }}
               onSelect={selected => {
                 const to = "/" + selected;
                 if (location.pathname !== to) {

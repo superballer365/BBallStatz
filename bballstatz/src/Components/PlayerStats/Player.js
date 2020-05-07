@@ -82,9 +82,18 @@ function Player(props) {
       ) : (
         stats && (
           <>
-            <p>points: {round(stats.points)}</p>
-            <p>rebounds: {round(stats.rebounds)}</p>
-            <p>assists: {round(stats.assists)}</p>
+            <p>
+              <span className="stat">PTS: </span>
+              <span className="stat">{round(stats.points)}</span>
+            </p>
+            <p>
+              <span className="stat">REB: </span>
+              <span className="stat">{round(stats.rebounds)}</span>
+            </p>
+            <p>
+              <span className="stat">AST: </span>
+              <span className="stat">{round(stats.assists)}</span>
+            </p>
           </>
         )
       )}

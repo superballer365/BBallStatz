@@ -5,6 +5,14 @@
   min-height: 300px;
 }
 
+p {
+  font-weight: bold;
+}
+
+.stat {
+  margin-left: 10px;
+}
+
 .playerImageContainer {
   position: relative;
 }
@@ -21,8 +29,12 @@
 
 .removeButton {
   position: absolute !important;
-  top: 0;
-  right: 0;
+  top: -10px;
+  right: 20px;
+  height: 36px;
+  width: 36px !important;
+  min-width: 36px !important;
+  background-color: #cd2020 !important;
 }
 
 .MuiAutocomplete-root {

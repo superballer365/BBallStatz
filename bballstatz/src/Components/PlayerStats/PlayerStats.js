@@ -44,7 +44,7 @@ function PlayerStats() {
 
   return (
     <div className="container">
-      <h1>Player Stats!!!</h1>
+      <h1>Player Stats</h1>
       {loadingPlayers ? (
         <div>...Loading</div>
       ) : (
