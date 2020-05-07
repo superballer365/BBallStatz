@@ -5,6 +5,7 @@ import * as queries from "../../graphql/queries";
 import * as customQueries from "../../graphql/customQueries";
 import Player from "./Player";
 import Button from "@material-ui/core/Button";
+import Loader from "react-loader-spinner";
 
 function uuidv4() {
   return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
@@ -46,7 +47,7 @@ function PlayerStats() {
     <div className="container">
       <h1>Player Stats</h1>
       {loadingPlayers ? (
-        <div>...Loading</div>
+        <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : (
         <div className="players">
           {selectedPlayers.map(player => (

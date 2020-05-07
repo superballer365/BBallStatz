@@ -6,6 +6,7 @@ import * as queries from "../../graphql/queries";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
+import Loader from "react-loader-spinner";
 
 function round(num) {
   return Math.round(num * 10) / 10;
@@ -78,7 +79,7 @@ function Player(props) {
         }}
       />
       {loadingStats && player ? (
-        <div>...Loading player stats</div>
+        <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : (
         stats && (
           <>
