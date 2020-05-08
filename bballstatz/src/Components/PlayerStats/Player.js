@@ -26,7 +26,10 @@ function Player(props) {
       );
       console.log("response");
       console.log(playerStats);
-      setStats(playerStats.data.getPlayer.perGameStats);
+      setStats({
+        ...playerStats.data.getPlayer.perGameStats,
+        mat: playerStats.data.getPlayer.mat
+      });
       setLoadingStats(false);
     };
 
@@ -94,6 +97,10 @@ function Player(props) {
             <p>
               <span className="stat">AST: </span>
               <span className="stat">{round(stats.assists)}</span>
+            </p>
+            <p>
+              <span className="stat">MAT: </span>
+              <span className="stat">{round(stats.mat)}</span>
             </p>
           </>
         )

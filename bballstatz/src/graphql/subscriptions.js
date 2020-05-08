@@ -12,6 +12,7 @@ export const onCreatePlayer = /* GraphQL */ `
         rebounds
         assists
       }
+      mat
     }
   }
 `;
@@ -26,6 +27,7 @@ export const onUpdatePlayer = /* GraphQL */ `
         rebounds
         assists
       }
+      mat
     }
   }
 `;
@@ -40,6 +42,7 @@ export const onDeletePlayer = /* GraphQL */ `
         rebounds
         assists
       }
+      mat
     }
   }
 `;

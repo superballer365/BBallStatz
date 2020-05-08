@@ -12,6 +12,7 @@ export const getPlayer = /* GraphQL */ `
         rebounds
         assists
       }
+      mat
     }
   }
 `;
@@ -31,6 +32,7 @@ export const listPlayers = /* GraphQL */ `
           rebounds
           assists
         }
+        mat
       }
       nextToken
     }

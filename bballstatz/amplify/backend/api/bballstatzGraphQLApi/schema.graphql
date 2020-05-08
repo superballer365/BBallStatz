@@ -3,6 +3,7 @@ type Player @model {
   firstName: String!
   lastName: String!
   perGameStats: PerGameStats @function(name: "statsFunctionResolver-${env}")
+  mat: Float! @function(name: "customAdvancedStatResolver-${env}")
 }
 
 type PerGameStats {

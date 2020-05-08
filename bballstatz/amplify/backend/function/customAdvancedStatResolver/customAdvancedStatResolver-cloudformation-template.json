@@ -9,14 +9,6 @@
 		},
 		"env": {
 			"Type": "String"
-		},
-		"apibballstatzGraphQLApiGraphQLAPIIdOutput": {
-			"Type": "String",
-			"Default": "apibballstatzGraphQLApiGraphQLAPIIdOutput"
-		},
-		"apibballstatzGraphQLApiGraphQLAPIEndpointOutput": {
-			"Type": "String",
-			"Default": "apibballstatzGraphQLApiGraphQLAPIEndpointOutput"
 		}
 	},
 	"Conditions": {
@@ -41,12 +33,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"playerAggregator",
+						"customAdvancedStatResolver",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"playerAggregator",
+									"customAdvancedStatResolver",
 									"-",
 									{
 										"Ref": "env"
@@ -63,12 +55,6 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
-						},
-						"API_BBALLSTATZGRAPHQLAPI_GRAPHQLAPIIDOUTPUT": {
-							"Ref": "apibballstatzGraphQLApiGraphQLAPIIdOutput"
-						},
-						"API_BBALLSTATZGRAPHQLAPI_GRAPHQLAPIENDPOINTOUTPUT": {
-							"Ref": "apibballstatzGraphQLApiGraphQLAPIEndpointOutput"
 						}
 					}
 				},
@@ -82,7 +68,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-bballstatz-dev-191447-deployment",
-					"S3Key": "amplify-builds/playerAggregator-426d75724f387a517a2b-build.zip"
+					"S3Key": "amplify-builds/customAdvancedStatResolver-73666c7759312f725934-build.zip"
 				}
 			}
 		},
@@ -92,12 +78,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"bballstatzLambdaRole12fe7ea0",
+						"bballstatzLambdaRoledd727a78",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"bballstatzLambdaRole12fe7ea0",
+									"bballstatzLambdaRoledd727a78",
 									"-",
 									{
 										"Ref": "env"
@@ -167,98 +153,6 @@
 					]
 				}
 			}
-		},
-		"CloudWatchEvent": {
-			"Type": "AWS::Events::Rule",
-			"Properties": {
-				"Description": "Schedule rule for Lambda",
-				"ScheduleExpression": {
-					"Ref": "CloudWatchRule"
-				},
-				"State": "ENABLED",
-				"Targets": [
-					{
-						"Arn": {
-							"Fn::GetAtt": [
-								"LambdaFunction",
-								"Arn"
-							]
-						},
-						"Id": {
-							"Ref": "LambdaFunction"
-						}
-					}
-				]
-			}
-		},
-		"PermissionForEventsToInvokeLambda": {
-			"Type": "AWS::Lambda::Permission",
-			"Properties": {
-				"FunctionName": {
-					"Ref": "LambdaFunction"
-				},
-				"Action": "lambda:InvokeFunction",
-				"Principal": "events.amazonaws.com",
-				"SourceArn": {
-					"Fn::GetAtt": [
-						"CloudWatchEvent",
-						"Arn"
-					]
-				}
-			}
-		},
-		"AmplifyResourcesPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "amplify-lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"appsync:Create*",
-								"appsync:StartSchemaCreation",
-								"appsync:GraphQL",
-								"appsync:Get*",
-								"appsync:List*",
-								"appsync:Update*",
-								"appsync:Delete*"
-							],
-							"Resource": [
-								{
-									"Fn::Join": [
-										"",
-										[
-											"arn:aws:appsync:",
-											{
-												"Ref": "AWS::Region"
-											},
-											":",
-											{
-												"Ref": "AWS::AccountId"
-											},
-											":apis/",
-											{
-												"Ref": "apibballstatzGraphQLApiGraphQLAPIIdOutput"
-											},
-											"/*"
-										]
-									]
-								}
-							]
-						}
-					]
-				}
-			}
 		}
 	},
 	"Outputs": {
@@ -283,11 +177,6 @@
 		"LambdaExecutionRole": {
 			"Value": {
 				"Ref": "LambdaExecutionRole"
-			}
-		},
-		"CloudWatchEventRule": {
-			"Value": {
-				"Ref": "CloudWatchEvent"
 			}
 		}
 	}
