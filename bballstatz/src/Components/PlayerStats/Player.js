@@ -20,12 +20,12 @@ function Player(props) {
 
   useEffect(() => {
     const fetchPlayerStats = async () => {
+      console.log("loading player");
+      console.log(player);
       setLoadingStats(true);
       const playerStats = await API.graphql(
         graphqlOperation(queries.getPlayer, { id: player.id })
       );
-      console.log("player");
-      console.log(player);
       setStats({
         ...playerStats.data.getPlayer.perGameStats,
         mat: playerStats.data.getPlayer.mat
@@ -34,8 +34,6 @@ function Player(props) {
     };
 
     if (player && player.id) {
-      console.log("selected player");
-      console.log(player);
       fetchPlayerStats();
     }
   }, [player]);
@@ -72,13 +70,9 @@ function Player(props) {
           />
         )}
         blurOnSelect
-        onInputChange={(event, newInputValue) => {
-          setPlayer(
-            players.find(
-              player =>
-                `${player.firstName} ${player.lastName}` === newInputValue
-            )
-          );
+        onChange={(event, newInputValue) => {
+          newInputValue &&
+            setPlayer(players.find(player => player.id === newInputValue.id));
         }}
       />
       {loadingStats && player ? (
