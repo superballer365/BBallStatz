@@ -9,6 +9,14 @@
 		},
 		"env": {
 			"Type": "String"
+		},
+		"apibballstatzGraphQLApiGraphQLAPIIdOutput": {
+			"Type": "String",
+			"Default": "apibballstatzGraphQLApiGraphQLAPIIdOutput"
+		},
+		"apibballstatzGraphQLApiGraphQLAPIEndpointOutput": {
+			"Type": "String",
+			"Default": "apibballstatzGraphQLApiGraphQLAPIEndpointOutput"
 		}
 	},
 	"Conditions": {
@@ -33,12 +41,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"statsFunctionResolver",
+						"ballDontLieMigrator",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"statsFunctionResolver",
+									"ballDontLieMigrator",
 									"-",
 									{
 										"Ref": "env"
@@ -55,6 +63,12 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
+						},
+						"API_BBALLSTATZGRAPHQLAPI_GRAPHQLAPIIDOUTPUT": {
+							"Ref": "apibballstatzGraphQLApiGraphQLAPIIdOutput"
+						},
+						"API_BBALLSTATZGRAPHQLAPI_GRAPHQLAPIENDPOINTOUTPUT": {
+							"Ref": "apibballstatzGraphQLApiGraphQLAPIEndpointOutput"
 						}
 					}
 				},
@@ -68,7 +82,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-bballstatz-dev-191447-deployment",
-					"S3Key": "amplify-builds/statsFunctionResolver-6a73546e367875654747-build.zip"
+					"S3Key": "amplify-builds/ballDontLieMigrator-746d57773477716a4255-build.zip"
 				}
 			}
 		},
@@ -78,12 +92,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"bballstatzLambdaRole66182917",
+						"bballstatzLambdaRole2c0c8586",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"bballstatzLambdaRole66182917",
+									"bballstatzLambdaRole2c0c8586",
 									"-",
 									{
 										"Ref": "env"
@@ -149,6 +163,59 @@
 									}
 								]
 							}
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Effect": "Allow",
+							"Action": [
+								"appsync:Create*",
+								"appsync:StartSchemaCreation",
+								"appsync:GraphQL",
+								"appsync:Get*",
+								"appsync:List*",
+								"appsync:Update*",
+								"appsync:Delete*"
+							],
+							"Resource": [
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:appsync:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":apis/",
+											{
+												"Ref": "apibballstatzGraphQLApiGraphQLAPIIdOutput"
+											},
+											"/*"
+										]
+									]
+								}
+							]
 						}
 					]
 				}

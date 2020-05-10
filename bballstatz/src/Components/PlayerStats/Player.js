@@ -24,8 +24,8 @@ function Player(props) {
       const playerStats = await API.graphql(
         graphqlOperation(queries.getPlayer, { id: player.id })
       );
-      console.log("response");
-      console.log(playerStats);
+      console.log("player");
+      console.log(player);
       setStats({
         ...playerStats.data.getPlayer.perGameStats,
         mat: playerStats.data.getPlayer.mat

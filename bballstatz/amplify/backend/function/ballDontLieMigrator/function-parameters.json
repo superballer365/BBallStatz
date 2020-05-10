@@ -1,0 +1,12 @@
+{
+    "permissions": {
+        "api": {
+            "bballstatzGraphQLApi": [
+                "create",
+                "read",
+                "update",
+                "delete"
+            ]
+        }
+    }
+}

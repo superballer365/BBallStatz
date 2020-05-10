@@ -1,4 +1,5 @@
 const http = require("http");
+const axios = require("axios");
 
 function calculatePerGameStats(playerData) {
   let totalGames = 0;
@@ -20,7 +21,7 @@ function calculatePerGameStats(playerData) {
   };
 }
 
-function getPlayerStats(playerId) {
+function getPlayerStatsOLD(playerId) {
   return new Promise((resolve, reject) => {
     const req = http.request(
       `http://api.sportradar.us/nba/trial/v5/en/players/${playerId}/profile.json?api_key=4kfpcdnf83bx43bj9gjucfym`,
@@ -52,10 +53,24 @@ function getPlayerStats(playerId) {
   });
 }
 
+async function getPlayerStats(playerId) {
+  const results = await axios.get(
+    `https://www.balldontlie.io/api/v1/season_averages?player_ids[]=${playerId}`
+  );
+
+  const stats = results.data.data[0];
+
+  return {
+    points: stats.pts,
+    rebounds: stats.reb,
+    assists: stats.ast
+  };
+}
+
 const resolvers = {
   Player: {
-    perGameStats: ctx => {
-      return getPlayerStats(ctx.source.id);
+    perGameStats: async ctx => {
+      return await getPlayerStats(ctx.source.id);
     }
   }
 };
