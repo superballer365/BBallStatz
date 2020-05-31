@@ -8,6 +8,8 @@ import Amplify from "aws-amplify";
 
 // set auth type for AppSync API to be API Key
 awsmobile.aws_appsync_authenticationType = "API_KEY";
+console.log("Amplify config:");
+console.log(awsmobile);
 Amplify.configure(awsmobile);
 
 ReactDOM.render(
