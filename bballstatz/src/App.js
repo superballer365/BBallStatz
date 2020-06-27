@@ -4,8 +4,14 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import PlayerStats from "./Components/PlayerStats/PlayerStats";
 import TeamStats from "./Components/TeamStats/TeamStats";
+import GameScores from "./Components/GameScores/GameScores";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserAlt, faHome, faUsers } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserAlt,
+  faHome,
+  faUsers,
+  faBasketballBall
+} from "@fortawesome/free-solid-svg-icons";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
@@ -33,6 +39,12 @@ export default function App() {
                   </NavIcon>
                   <NavText>Home</NavText>
                 </NavItem>
+                <NavItem eventKey="GameScores">
+                  <NavIcon>
+                    <FontAwesomeIcon icon={faBasketballBall} />
+                  </NavIcon>
+                  <NavText>Game Scores</NavText>
+                </NavItem>
                 <NavItem eventKey="PlayerStats">
                   <NavIcon>
                     <FontAwesomeIcon icon={faUserAlt} />
@@ -51,6 +63,7 @@ export default function App() {
               <Route path="/" exact component={props => <Home />} />
               <Route path="/PlayerStats" component={props => <PlayerStats />} />
               <Route path="/TeamStats" component={props => <TeamStats />} />
+              <Route path="/GameScores" component={props => <GameScores />} />
             </main>
           </React.Fragment>
         )}
