@@ -11,3 +11,29 @@ type PerGameStats {
   rebounds: Float!
   assists: Float!
 }
+
+type Team {
+  id: ID!
+  abbreviation: String!
+  city: String!
+  conference: String!
+  division: String!
+  name: String!
+  fullName: String!
+}
+
+type GameScore {
+  id: ID!
+  date: String!
+  homeTeam: Team!
+  awayTeam: Team!
+  homeScore: Int!
+  awayScore: Int!
+  period: Int!
+  isOver: Boolean!
+  postSeason: Boolean!
+}
+
+type Query {
+  getGameScores(date: String!): [GameScore]! @function(name: "gameScoreFunctionResolver-${env}") 
+}

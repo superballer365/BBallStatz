@@ -1,6 +1,37 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getGameScores = /* GraphQL */ `
+  query GetGameScores($date: String!) {
+    getGameScores(date: $date) {
+      id
+      date
+      homeTeam {
+        id
+        abbreviation
+        city
+        conference
+        division
+        name
+        fullName
+      }
+      awayTeam {
+        id
+        abbreviation
+        city
+        conference
+        division
+        name
+        fullName
+      }
+      homeScore
+      awayScore
+      period
+      isOver
+      postSeason
+    }
+  }
+`;
 export const getPlayer = /* GraphQL */ `
   query GetPlayer($id: ID!) {
     getPlayer(id: $id) {
