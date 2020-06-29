@@ -33,7 +33,7 @@ function GameScores() {
       <h1>Game Scores</h1>
       {isLoadingGameScores ? (
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
-      ) : (
+      ) : gameScores.length > 0 ? (
         <div className="gameScoresContainer">
           {gameScores.map(gameScore => (
             <GameScore
@@ -49,6 +49,8 @@ function GameScores() {
             />
           ))}
         </div>
+      ) : (
+        <div>No games scheduled.</div>
       )}
     </div>
   );
