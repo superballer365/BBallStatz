@@ -1,35 +1,66 @@
-const dummyGame = {
-  id: "62843",
-  date: "2019-06-07T00:00:00.000Z",
-  homeTeam: {
-    id: "10",
-    abbreviation: "GSW",
-    city: "Golden State",
-    conference: "West",
-    division: "Pacific",
-    name: "Warriors",
-    fullName: "Golden State Warriors"
-  },
-  awayTeam: {
-    id: "28",
-    abbreviation: "TOR",
-    city: "Toronto",
-    conference: "East",
-    division: "Atlantic",
-    name: "Raptors",
-    fullName: "Toronto Raptors"
-  },
-  homeScore: 92,
-  awayScore: 105,
-  period: 4,
-  isOver: true,
-  postSeason: true
-};
+const axios = require("axios");
+
+// parse a date in yyyy-mm-dd format
+function parseDate(input) {
+  let parts = input.split("-");
+
+  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
+  return new Date(parts[0], parts[1] - 1, parts[2]); // Note: months are 0-based
+}
+
+function formatDate(d) {
+  let month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+}
 
 const getGameScoresHandler = async ctx => {
-  console.log("context:");
-  console.log(ctx);
-  return [dummyGame];
+  let date = undefined;
+  try {
+    date = parseDate(ctx.arguments.date);
+  } catch (error) {
+    throw new Error(
+      `Failed to parse supplied date with the following error: ${error.message}`
+    );
+  }
+  console.log("about to get URL");
+  const url = `https://www.balldontlie.io/api/v1/games?start_date=${formatDate(
+    date
+  )}&end_date=${formatDate(date)}`;
+  const results = await axios.get(url);
+  const gameScores = results.data.data.map(gameScore => ({
+    id: gameScore.id,
+    date: gameScore.date,
+    homeTeam: {
+      id: gameScore.home_team.id,
+      abbreviation: gameScore.home_team.abbreviation,
+      city: gameScore.home_team.city,
+      conference: gameScore.home_team.conference,
+      division: gameScore.home_team.division,
+      name: gameScore.home_team.name,
+      fullName: gameScore.home_team.full_name
+    },
+    awayTeam: {
+      id: gameScore.visitor_team.id,
+      abbreviation: gameScore.visitor_team.abbreviation,
+      city: gameScore.visitor_team.city,
+      conference: gameScore.visitor_team.conference,
+      division: gameScore.visitor_team.division,
+      name: gameScore.visitor_team.name,
+      fullName: gameScore.visitor_team.full_name
+    },
+    homeScore: gameScore.home_team_score,
+    awayScore: gameScore.visitor_team_score,
+    period: gameScore.period,
+    isOver: gameScore.status === "Final",
+    postSeason: gameScore.postSeason
+  }));
+  return gameScores;
 };
 
 const resolvers = {
