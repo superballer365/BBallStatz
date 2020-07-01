@@ -8,14 +8,20 @@ import Button from "@material-ui/core/Button";
 import Loader from "react-loader-spinner";
 import "./GameScores.css";
 
+const getUTCNoonDate = date => {
+  date.setUTCHours(12, 0, 0, 0);
+  return date;
+};
+
 function GameScores() {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(getUTCNoonDate(new Date()));
   const [gameScores, setGameScores] = useState([]);
   const [isLoadingGameScores, setIsLoadingGameScores] = useState(false);
 
   useEffect(() => {
     const fetchGameScores = async () => {
       setIsLoadingGameScores(true);
+      console.log(`date: ${date.toISOString()}`);
       const gameScores = await API.graphql(
         graphqlOperation(queries.getGameScores, {
           date: date.toISOString()
@@ -37,7 +43,7 @@ function GameScores() {
         <DatePicker
           dateFormat="yyyy/MM/dd"
           selected={date}
-          onChange={date => setDate(date)}
+          onChange={date => setDate(getUTCNoonDate(date))}
         />
       </div>
       {isLoadingGameScores ? (
