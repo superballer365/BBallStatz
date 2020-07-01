@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
+import DatePicker from "react-datepicker";
 import * as queries from "../../graphql/queries";
 import GameScore from "./GameScore";
 import * as customQueries from "../../graphql/customQueries";
@@ -8,6 +9,7 @@ import Loader from "react-loader-spinner";
 import "./GameScores.css";
 
 function GameScores() {
+  const [date, setDate] = useState(new Date());
   const [gameScores, setGameScores] = useState([]);
   const [isLoadingGameScores, setIsLoadingGameScores] = useState(false);
 
@@ -16,7 +18,7 @@ function GameScores() {
       setIsLoadingGameScores(true);
       const gameScores = await API.graphql(
         graphqlOperation(queries.getGameScores, {
-          date: new Date().toISOString()
+          date: date.toISOString()
         })
       );
 
@@ -25,12 +27,19 @@ function GameScores() {
     };
 
     fetchGameScores();
-  }, []);
+  }, [date]);
 
   console.log(gameScores);
   return (
     <div className="container">
       <h1>Game Scores</h1>
+      <div className="datePickerContainer">
+        <DatePicker
+          dateFormat="yyyy/MM/dd"
+          selected={date}
+          onChange={date => setDate(date)}
+        />
+      </div>
       {isLoadingGameScores ? (
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : gameScores.length > 0 ? (

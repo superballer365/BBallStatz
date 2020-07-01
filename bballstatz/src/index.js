@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import awsmobile from "./aws-exports";
 import Amplify from "aws-amplify";
+import "react-datepicker/dist/react-datepicker.css";
 
 // set auth type for AppSync API to be API Key
 awsmobile.aws_appsync_authenticationType = "API_KEY";

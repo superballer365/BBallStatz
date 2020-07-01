@@ -1,23 +1,16 @@
 const axios = require("axios");
 
-// parse a date in yyyy-mm-dd format
-function parseDate(input) {
-  let parts = input.split("-");
-
-  // new Date(year, month [, day [, hours[, minutes[, seconds[, ms]]]]])
-  return new Date(parts[0], parts[1] - 1, parts[2]); // Note: months are 0-based
-}
-
 function formatDate(d) {
   let month = "" + (d.getUTCMonth() + 1),
     day = "" + d.getUTCDate(),
     year = d.getUTCFullYear();
 
-  console.log("month: " + month);
   if (month.length < 2) month = "0" + month;
   if (day.length < 2) day = "0" + day;
 
-  return [year, month, day].join("-");
+  const formattedDate = [year, month, day].join("-");
+  console.log(`formatted date: ${formattedDate}`);
+  return formattedDate;
 }
 
 const getGameScoresHandler = async ctx => {
@@ -58,7 +51,7 @@ const getGameScoresHandler = async ctx => {
     awayScore: gameScore.visitor_team_score,
     period: gameScore.period,
     isOver: gameScore.status === "Final",
-    postSeason: gameScore.postSeason
+    postSeason: gameScore.postseason
   }));
   return gameScores;
 };

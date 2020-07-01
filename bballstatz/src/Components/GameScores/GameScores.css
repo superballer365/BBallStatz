@@ -1,5 +1,12 @@
 .container {
+  display: grid;
   text-align: center;
+}
+
+.datePickerContainer {
+  display: flex;
+  justify-self: center;
+  align-self: center;
 }
 
 .gameScoresContainer {
