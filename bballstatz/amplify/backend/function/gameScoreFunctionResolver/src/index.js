@@ -9,10 +9,11 @@ function parseDate(input) {
 }
 
 function formatDate(d) {
-  let month = "" + (d.getMonth() + 1),
-    day = "" + d.getDate(),
-    year = d.getFullYear();
+  let month = "" + (d.getUTCMonth() + 1),
+    day = "" + d.getUTCDate(),
+    year = d.getUTCFullYear();
 
+  console.log("month: " + month);
   if (month.length < 2) month = "0" + month;
   if (day.length < 2) day = "0" + day;
 
@@ -22,13 +23,12 @@ function formatDate(d) {
 const getGameScoresHandler = async ctx => {
   let date = undefined;
   try {
-    date = parseDate(ctx.arguments.date);
+    date = new Date(ctx.arguments.date);
   } catch (error) {
     throw new Error(
       `Failed to parse supplied date with the following error: ${error.message}`
     );
   }
-  console.log("about to get URL");
   const url = `https://www.balldontlie.io/api/v1/games?start_date=${formatDate(
     date
   )}&end_date=${formatDate(date)}`;
