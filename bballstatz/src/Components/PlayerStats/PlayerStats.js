@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./PlayerStats.css";
+import styles from "./PlayerStats.module.css";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import * as customQueries from "../../graphql/customQueries";
@@ -44,12 +44,12 @@ function PlayerStats() {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1>Player Stats</h1>
       {loadingPlayers ? (
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : (
-        <div className="players">
+        <div className={styles.players}>
           {selectedPlayers.map(player => (
             <Player
               key={player.id}

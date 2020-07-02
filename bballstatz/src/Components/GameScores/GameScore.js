@@ -4,7 +4,7 @@ import * as queries from "../../graphql/queries";
 import * as customQueries from "../../graphql/customQueries";
 import Button from "@material-ui/core/Button";
 import Loader from "react-loader-spinner";
-import "./GameScore.css";
+import styles from "./GameScore.module.css";
 
 function GameScore(props) {
   const {
@@ -20,7 +20,7 @@ function GameScore(props) {
   } = props;
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       {`${homeTeam.abbreviation}: ${homeScore}    ${awayTeam.abbreviation}: ${awayScore}`}
     </div>
   );

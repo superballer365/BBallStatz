@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Player.css";
+import styles from "./Player.module.css";
 import BlankPlayer from "../../Images/BlankPlayer.png";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
@@ -20,8 +20,6 @@ function Player(props) {
 
   useEffect(() => {
     const fetchPlayerStats = async () => {
-      console.log("loading player");
-      console.log(player);
       setLoadingStats(true);
       const playerStats = await API.graphql(
         graphqlOperation(queries.getPlayer, { id: player.id })
@@ -39,10 +37,10 @@ function Player(props) {
   }, [player]);
 
   return (
-    <div className="container">
-      <div className="playerImageContainer">
+    <div className={styles.container}>
+      <div className={styles.playerImageContainer}>
         <Button
-          className="removeButton"
+          className={styles.removeButton}
           variant="contained"
           color="primary"
           onClick={() => props.onRemovePlayer(props.listId)}
@@ -50,7 +48,7 @@ function Player(props) {
           X
         </Button>
         <img
-          className={player ? "playerImage" : "blankPlayerImage"}
+          className={player ? styles.playerImage : styles.blankPlayerImage}
           src={
             player
               ? `https://nba-players.herokuapp.com/players/${player.lastName}/${player.firstName}`
@@ -81,20 +79,20 @@ function Player(props) {
         stats && (
           <>
             <p>
-              <span className="stat">PTS: </span>
-              <span className="stat">{round(stats.points)}</span>
+              <span className={styles.stat}>PTS: </span>
+              <span className={styles.stat}>{round(stats.points)}</span>
             </p>
             <p>
-              <span className="stat">REB: </span>
-              <span className="stat">{round(stats.rebounds)}</span>
+              <span className={styles.stat}>REB: </span>
+              <span className={styles.stat}>{round(stats.rebounds)}</span>
             </p>
             <p>
-              <span className="stat">AST: </span>
-              <span className="stat">{round(stats.assists)}</span>
+              <span className={styles.stat}>AST: </span>
+              <span className={styles.stat}>{round(stats.assists)}</span>
             </p>
             <p>
-              <span className="stat">MAT: </span>
-              <span className="stat">{round(stats.mat)}</span>
+              <span className={styles.stat}>MAT: </span>
+              <span className={styles.stat}>{round(stats.mat)}</span>
             </p>
           </>
         )

@@ -6,7 +6,7 @@ import GameScore from "./GameScore";
 import * as customQueries from "../../graphql/customQueries";
 import Button from "@material-ui/core/Button";
 import Loader from "react-loader-spinner";
-import "./GameScores.css";
+import styles from "./GameScores.module.css";
 
 const getUTCNoonDate = date => {
   date.setUTCHours(12, 0, 0, 0);
@@ -37,7 +37,7 @@ function GameScores() {
 
   console.log(gameScores);
   return (
-    <div className="container">
+    <div className={styles.container}>
       <h1>Game Scores</h1>
       <div className="datePickerContainer">
         <DatePicker
@@ -49,7 +49,7 @@ function GameScores() {
       {isLoadingGameScores ? (
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : gameScores.length > 0 ? (
-        <div className="gameScoresContainer">
+        <div className={styles.gameScoresContainer}>
           {gameScores.map(gameScore => (
             <GameScore
               key={gameScore.id}

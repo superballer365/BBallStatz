@@ -9,8 +9,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 // set auth type for AppSync API to be API Key
 awsmobile.aws_appsync_authenticationType = "API_KEY";
-console.log("Amplify config:");
-console.log(awsmobile);
 Amplify.configure(awsmobile);
 
 ReactDOM.render(
