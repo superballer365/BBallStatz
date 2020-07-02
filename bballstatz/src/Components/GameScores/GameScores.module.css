@@ -3,6 +3,7 @@
 }
 
 .datePickerContainer {
+  display: -webkit-inline-box;
   justify-self: center;
   align-self: center;
 }

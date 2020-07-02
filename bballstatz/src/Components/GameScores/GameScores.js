@@ -14,6 +14,17 @@ const getUTCNoonDate = date => {
   return date;
 };
 
+const DateInput = ({ value, onClick }) => (
+  <Button
+    className={styles.dateChangeButton}
+    variant="contained"
+    color="primary"
+    onClick={onClick}
+  >
+    {value}
+  </Button>
+);
+
 function GameScores() {
   const [date, setDate] = useState(getUTCNoonDate(new Date()));
   const [gameScores, setGameScores] = useState([]);
@@ -53,6 +64,7 @@ function GameScores() {
           dateFormat="yyyy/MM/dd"
           selected={date}
           onChange={date => setDate(getUTCNoonDate(date))}
+          customInput={<DateInput />}
         />
         <DateChangeButton
           direction="forward"
