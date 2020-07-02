@@ -5,6 +5,7 @@ import * as queries from "../../graphql/queries";
 import GameScore from "./GameScore";
 import * as customQueries from "../../graphql/customQueries";
 import Button from "@material-ui/core/Button";
+import DateChangeButton from "../Common/DateChangeButton";
 import Loader from "react-loader-spinner";
 import styles from "./GameScores.module.css";
 
@@ -35,15 +36,32 @@ function GameScores() {
     fetchGameScores();
   }, [date]);
 
-  console.log(gameScores);
   return (
     <div className={styles.container}>
       <h1>Game Scores</h1>
-      <div className="datePickerContainer">
+      <div className={styles.datePickerContainer}>
+        <DateChangeButton
+          direction="backwards"
+          onClick={() =>
+            setDate(prevDate => {
+              prevDate.setDate(prevDate.getDate() - 1);
+              return new Date(prevDate);
+            })
+          }
+        />
         <DatePicker
           dateFormat="yyyy/MM/dd"
           selected={date}
           onChange={date => setDate(getUTCNoonDate(date))}
+        />
+        <DateChangeButton
+          direction="forward"
+          onClick={() =>
+            setDate(prevDate => {
+              prevDate.setDate(prevDate.getDate() + 1);
+              return new Date(prevDate);
+            })
+          }
         />
       </div>
       {isLoadingGameScores ? (
