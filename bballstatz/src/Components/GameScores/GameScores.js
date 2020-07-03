@@ -60,17 +60,15 @@ function GameScores() {
         onDateChange={date => setDate(getUTCNoonDate(date))}
         date={date}
       />
-      {isLoadingGameScores ? (
-        <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
-      ) : gameScores.length > 0 ? (
-        <div className={styles.gameScoresContainer}>
-          {gameScores.map(gameScore => (
-            <GameScore data={gameScore} />
-          ))}
-        </div>
-      ) : (
-        <div>No games scheduled.</div>
-      )}
+      <div className={styles.gameScoresContainer}>
+        {isLoadingGameScores ? (
+          <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
+        ) : gameScores.length > 0 ? (
+          gameScores.map(gameScore => <GameScore data={gameScore} />)
+        ) : (
+          <div>No games scheduled.</div>
+        )}
+      </div>
     </div>
   );
 }
