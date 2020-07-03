@@ -19,7 +19,6 @@ function GameScores() {
 
   useEffect(() => {
     const fetchGameScores = async () => {
-      setIsLoadingGameScores(true);
       console.log(`date: ${date.toISOString()}`);
       const gameScores = await API.graphql(
         graphqlOperation(queries.getGameScores, {
@@ -27,11 +26,19 @@ function GameScores() {
         })
       );
 
-      setGameScores(gameScores.data.getGameScores);
-      setIsLoadingGameScores(false);
+      return gameScores.data.getGameScores;
     };
 
-    fetchGameScores();
+    setIsLoadingGameScores(true);
+    fetchGameScores()
+      .then(result => {
+        setGameScores(result);
+      })
+      .catch(error => {
+        setGameScores([]);
+        console.error(error);
+      })
+      .finally(() => setIsLoadingGameScores(false));
   }, [date]);
 
   return (
@@ -58,17 +65,7 @@ function GameScores() {
       ) : gameScores.length > 0 ? (
         <div className={styles.gameScoresContainer}>
           {gameScores.map(gameScore => (
-            <GameScore
-              key={gameScore.id}
-              date={gameScore.date}
-              homeTeam={gameScore.homeTeam}
-              awayTeam={gameScore.awayTeam}
-              homeScore={gameScore.homeScore}
-              awayScore={gameScore.awayScore}
-              period={gameScore.period}
-              isOver={gameScore.isOver}
-              postSeason={gameScore.postSeason}
-            />
+            <GameScore data={gameScore} />
           ))}
         </div>
       ) : (

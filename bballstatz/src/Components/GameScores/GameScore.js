@@ -17,7 +17,7 @@ function GameScore(props) {
     period,
     isOver,
     postSeason
-  } = props;
+  } = props.data;
 
   return (
     <div className={styles.container}>
