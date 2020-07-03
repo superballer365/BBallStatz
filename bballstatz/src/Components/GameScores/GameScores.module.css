@@ -2,12 +2,6 @@
   text-align: center;
 }
 
-.datePickerContainer {
-  display: -webkit-inline-box;
-  justify-self: center;
-  align-self: center;
-}
-
 .gameScoresContainer {
   margin-top: 50px;
   display: flex;

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import DatePicker from "react-datepicker";
 import * as queries from "../../graphql/queries";
 import GameScore from "./GameScore";
 import * as customQueries from "../../graphql/customQueries";
-import Button from "@material-ui/core/Button";
-import DateChangeButton from "../Common/DateChangeButton";
+import DatePicker from "../Common/DatePicker/DatePicker";
 import Loader from "react-loader-spinner";
 import styles from "./GameScores.module.css";
 
@@ -13,17 +11,6 @@ const getUTCNoonDate = date => {
   date.setUTCHours(12, 0, 0, 0);
   return date;
 };
-
-const DateInput = ({ value, onClick }) => (
-  <Button
-    className={styles.dateChangeButton}
-    variant="contained"
-    color="primary"
-    onClick={onClick}
-  >
-    {value}
-  </Button>
-);
 
 function GameScores() {
   const [date, setDate] = useState(getUTCNoonDate(new Date()));
@@ -50,32 +37,22 @@ function GameScores() {
   return (
     <div className={styles.container}>
       <h1>Game Scores</h1>
-      <div className={styles.datePickerContainer}>
-        <DateChangeButton
-          direction="backwards"
-          onClick={() =>
-            setDate(prevDate => {
-              prevDate.setDate(prevDate.getDate() - 1);
-              return new Date(prevDate);
-            })
-          }
-        />
-        <DatePicker
-          dateFormat="yyyy/MM/dd"
-          selected={date}
-          onChange={date => setDate(getUTCNoonDate(date))}
-          customInput={<DateInput />}
-        />
-        <DateChangeButton
-          direction="forward"
-          onClick={() =>
-            setDate(prevDate => {
-              prevDate.setDate(prevDate.getDate() + 1);
-              return new Date(prevDate);
-            })
-          }
-        />
-      </div>
+      <DatePicker
+        onBackwardClick={() =>
+          setDate(prevDate => {
+            prevDate.setDate(prevDate.getDate() - 1);
+            return new Date(prevDate);
+          })
+        }
+        onForwardClick={() =>
+          setDate(prevDate => {
+            prevDate.setDate(prevDate.getDate() + 1);
+            return new Date(prevDate);
+          })
+        }
+        onDateChange={date => setDate(getUTCNoonDate(date))}
+        date={date}
+      />
       {isLoadingGameScores ? (
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : gameScores.length > 0 ? (
