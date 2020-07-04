@@ -13,12 +13,21 @@
   box-shadow: 2px 2px black;
 }
 
-.teamScore {
-  display: flex;
+.teamScoreContainer {
+  display: flow-root;
   margin: 3px;
 }
 
+.teamScore {
+  float: right;
+}
+
+.team {
+  float: left;
+}
+
 .teamLogo {
+  float: left;
   height: 20px;
   width: 20px;
   margin-right: 3px;

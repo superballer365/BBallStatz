@@ -22,13 +22,15 @@ function GameScore(props) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.teamScore}>
+      <div className={styles.teamScoreContainer}>
         <img className={styles.teamLogo} src={logo} />
-        <span>{`${homeTeam.abbreviation}: ${homeScore}`}</span>
+        <span className={styles.team}>{`${homeTeam.name}:`}</span>
+        <span className={styles.teamScore}>{`${homeScore}`}</span>
       </div>
-      <div className={styles.teamScore}>
+      <div className={styles.teamScoreContainer}>
         <img className={styles.teamLogo} src={logo} />
-        <span>{`${awayTeam.abbreviation}: ${awayScore}`}</span>
+        <span className={styles.team}>{`${awayTeam.name}:`}</span>
+        <span className={styles.teamScore}>{`${awayScore}`}</span>
       </div>
     </div>
   );
