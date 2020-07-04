@@ -7,6 +7,18 @@ import Loader from "react-loader-spinner";
 import styles from "./GameScore.module.css";
 import logo from "../../Images/Hawks.png";
 
+function TeamScore(props) {
+  const { name, score } = props;
+
+  return (
+    <div className={styles.teamScoreContainer}>
+      <img className={styles.teamLogo} src={logo} />
+      <span className={styles.team}>{`${name}:`}</span>
+      <span className={styles.teamScore}>{`${score}`}</span>
+    </div>
+  );
+}
+
 function GameScore(props) {
   const {
     id,
@@ -22,16 +34,8 @@ function GameScore(props) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.teamScoreContainer}>
-        <img className={styles.teamLogo} src={logo} />
-        <span className={styles.team}>{`${homeTeam.name}:`}</span>
-        <span className={styles.teamScore}>{`${homeScore}`}</span>
-      </div>
-      <div className={styles.teamScoreContainer}>
-        <img className={styles.teamLogo} src={logo} />
-        <span className={styles.team}>{`${awayTeam.name}:`}</span>
-        <span className={styles.teamScore}>{`${awayScore}`}</span>
-      </div>
+      <TeamScore name={homeTeam.name} score={homeScore} />
+      <TeamScore name={awayTeam.name} score={awayScore} />
     </div>
   );
 }
