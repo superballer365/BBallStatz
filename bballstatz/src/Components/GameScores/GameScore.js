@@ -12,7 +12,9 @@ function TeamScore(props) {
 
   return (
     <div className={styles.teamScoreContainer}>
-      <img className={styles.teamLogo} src={getTeamLogo(name)} />
+      <div className={styles.teamLogoContainer}>
+        <img className={styles.img} src={getTeamLogo(name)} />
+      </div>
       <span className={styles.team}>{`${name}:`}</span>
       <span className={styles.teamScore}>{`${score}`}</span>
     </div>
