@@ -15,8 +15,20 @@ const getUTCNoonDate = date => {
   return date;
 };
 
-function GameScores() {
-  const [date, setDate] = useState(getUTCNoonDate(new Date()));
+const formatDate = date => {
+  let month = "" + (date.getMonth() + 1),
+    day = "" + date.getDate(),
+    year = date.getFullYear();
+
+  return `${month}-${day}-${year}`;
+};
+
+function GameScores(props) {
+  const dateStringFromUrl = props.match.params.date;
+  const dateFromUrl = new Date(dateStringFromUrl);
+  const [date, setDate] = useState(
+    getUTCNoonDate(dateStringFromUrl ? dateFromUrl : new Date())
+  );
   const [gameScores, setGameScores] = useState([]);
   const [isLoadingGameScores, setIsLoadingGameScores] = useState(false);
 
@@ -51,12 +63,14 @@ function GameScores() {
         onBackwardClick={() =>
           setDate(prevDate => {
             prevDate.setDate(prevDate.getDate() - 1);
+            console.log(formatDate(prevDate));
             return new Date(prevDate);
           })
         }
         onForwardClick={() =>
           setDate(prevDate => {
             prevDate.setDate(prevDate.getDate() + 1);
+            console.log(formatDate(prevDate));
             return new Date(prevDate);
           })
         }

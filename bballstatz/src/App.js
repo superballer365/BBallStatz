@@ -60,10 +60,11 @@ export default function App() {
               </SideNav.Nav>
             </SideNav>
             <main className={styles.mainWrapper}>
-              <Route path="/" exact component={props => <Home />} />
-              <Route path="/PlayerStats" component={props => <PlayerStats />} />
-              <Route path="/TeamStats" component={props => <TeamStats />} />
-              <Route path="/GameScores" component={props => <GameScores />} />
+              <Route path="/" exact component={Home} />
+              <Route path="/PlayerStats" component={PlayerStats} />
+              <Route path="/TeamStats" component={TeamStats} />
+              <Route path="/GameScores" exact component={GameScores} />
+              <Route path="/GameScores/:date" component={GameScores} />
             </main>
           </div>
         )}
