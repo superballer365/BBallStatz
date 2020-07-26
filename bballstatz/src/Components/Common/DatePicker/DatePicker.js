@@ -14,7 +14,7 @@ export default function DatePicker({
     <div className={styles.container}>
       <DateChangeButton direction="backwards" onClick={onBackwardClick} />
       <ReactDatePicker
-        dateFormat="yyyy/MM/dd"
+        dateFormat="MM/dd/yyyy"
         selected={date}
         onChange={onDateChange}
         customInput={<DateInput />}

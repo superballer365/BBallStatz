@@ -8,6 +8,9 @@ import Loader from "react-loader-spinner";
 import styles from "./GameScores.module.css";
 
 const getUTCNoonDate = date => {
+  date.setUTCFullYear(date.getFullYear());
+  date.setUTCMonth(date.getMonth());
+  date.setUTCDate(date.getDate());
   date.setUTCHours(12, 0, 0, 0);
   return date;
 };
