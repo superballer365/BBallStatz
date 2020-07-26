@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import GameScore from "./GameScore";
@@ -6,29 +6,25 @@ import * as customQueries from "../../graphql/customQueries";
 import DatePicker from "../Common/DatePicker/DatePicker";
 import Loader from "react-loader-spinner";
 import styles from "./GameScores.module.css";
-
-const getUTCNoonDate = date => {
-  date.setUTCFullYear(date.getFullYear());
-  date.setUTCMonth(date.getMonth());
-  date.setUTCDate(date.getDate());
-  date.setUTCHours(12, 0, 0, 0);
-  return date;
-};
-
-const formatDate = date => {
-  let month = "" + (date.getMonth() + 1),
-    day = "" + date.getDate(),
-    year = date.getFullYear();
-
-  return `${month}-${day}-${year}`;
-};
+import { getUTCNoonDate, formatDate, isValidDate } from "../../Utils/Date";
+import { useHistory } from "react-router-dom";
 
 function GameScores(props) {
-  const dateStringFromUrl = props.match.params.date;
-  const dateFromUrl = new Date(dateStringFromUrl);
-  const [date, setDate] = useState(
-    getUTCNoonDate(dateStringFromUrl ? dateFromUrl : new Date())
-  );
+  let history = useHistory();
+  const date = useMemo(() => {
+    const defaultDate = getUTCNoonDate(new Date());
+    try {
+      const newDate = props.match.params.date
+        ? new Date(props.match.params.date)
+        : getUTCNoonDate(new Date());
+      if (!isValidDate(newDate)) throw new Error("Invalid date in URL");
+      return newDate;
+    } catch (error) {
+      console.error(error);
+      history.push(`/GameScores/${formatDate(defaultDate)}`);
+      return defaultDate;
+    }
+  }, [props.match.params.date]);
   const [gameScores, setGameScores] = useState([]);
   const [isLoadingGameScores, setIsLoadingGameScores] = useState(false);
 
@@ -60,21 +56,17 @@ function GameScores(props) {
     <div className={styles.container}>
       <h1>Game Scores</h1>
       <DatePicker
-        onBackwardClick={() =>
-          setDate(prevDate => {
-            prevDate.setDate(prevDate.getDate() - 1);
-            console.log(formatDate(prevDate));
-            return new Date(prevDate);
-          })
-        }
-        onForwardClick={() =>
-          setDate(prevDate => {
-            prevDate.setDate(prevDate.getDate() + 1);
-            console.log(formatDate(prevDate));
-            return new Date(prevDate);
-          })
-        }
-        onDateChange={date => setDate(getUTCNoonDate(date))}
+        onBackwardClick={() => {
+          const newDate = new Date(date);
+          newDate.setDate(newDate.getDate() - 1);
+          history.push(`/GameScores/${formatDate(newDate)}`);
+        }}
+        onForwardClick={() => {
+          const newDate = new Date(date);
+          newDate.setDate(newDate.getDate() + 1);
+          history.push(`/GameScores/${formatDate(newDate)}`);
+        }}
+        onDateChange={newDate => (date = newDate)}
         date={date}
       />
       <div className={styles.gameScoresContainer}>
