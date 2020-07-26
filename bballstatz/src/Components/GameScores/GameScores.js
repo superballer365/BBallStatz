@@ -66,7 +66,9 @@ function GameScores(props) {
           newDate.setDate(newDate.getDate() + 1);
           history.push(`/GameScores/${formatDate(newDate)}`);
         }}
-        onDateChange={newDate => (date = newDate)}
+        onDateChange={newDate => {
+          history.push(`/GameScores/${formatDate(newDate)}`);
+        }}
         date={date}
       />
       <div className={styles.gameScoresContainer}>
