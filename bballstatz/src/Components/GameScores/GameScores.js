@@ -62,13 +62,19 @@ function GameScores() {
       />
       <div className={styles.gameScoresContainer}>
         {isLoadingGameScores ? (
-          <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
+          <Loader
+            style={{ marginTop: "50px" }}
+            type="TailSpin"
+            color="#00BFFF"
+            height={100}
+            width={100}
+          />
         ) : gameScores.length > 0 ? (
           gameScores.map(gameScore => (
             <GameScore key={gameScore.id} data={gameScore} />
           ))
         ) : (
-          <div>No games scheduled.</div>
+          <div style={{ marginTop: "50px" }}>No games scheduled.</div>
         )}
       </div>
     </div>
