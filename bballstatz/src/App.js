@@ -13,17 +13,17 @@ import {
   faBasketballBall
 } from "@fortawesome/free-solid-svg-icons";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
-
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
+import styles from "./App.module.css";
 
 export default function App() {
   return (
     <Router>
       <Route
         render={({ location, history }) => (
-          <React.Fragment>
+          <div className={styles.container}>
             <SideNav
-              style={{ backgroundColor: "#0B3263" }}
+              style={{ backgroundColor: "#0B3263", height: "100%" }}
               onSelect={selected => {
                 const to = "/" + selected;
                 if (location.pathname !== to) {
@@ -59,13 +59,13 @@ export default function App() {
                 </NavItem>
               </SideNav.Nav>
             </SideNav>
-            <main>
+            <main className={styles.mainWrapper}>
               <Route path="/" exact component={props => <Home />} />
               <Route path="/PlayerStats" component={props => <PlayerStats />} />
               <Route path="/TeamStats" component={props => <TeamStats />} />
               <Route path="/GameScores" component={props => <GameScores />} />
             </main>
-          </React.Fragment>
+          </div>
         )}
       />
     </Router>
