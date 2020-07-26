@@ -43,6 +43,8 @@
 }
 
 .mainWrapper {
+  position: absolute;
+  left: 64px;
   height: 100%;
-  width: 100%;
+  width: calc(100% - 64px);
 }
