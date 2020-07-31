@@ -36,6 +36,7 @@ function GameScore(props) {
 
   return (
     <div className={styles.container}>
+      <div className={styles.period}>{isOver ? "Final" : `Q${period}`}</div>
       <TeamScore name={homeTeam.name} score={homeScore} />
       <TeamScore name={awayTeam.name} score={awayScore} />
     </div>

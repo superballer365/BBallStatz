@@ -21,6 +21,10 @@
   align-items: center;
 }
 
+.period {
+  font-weight: bold;
+}
+
 .teamScore {
   float: right;
 }
