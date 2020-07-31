@@ -6,34 +6,30 @@ import * as customQueries from "../../graphql/customQueries";
 import DatePicker from "../Common/DatePicker/DatePicker";
 import Loader from "react-loader-spinner";
 import styles from "./GameScores.module.css";
-import { getUTCNoonDate, formatDate, isValidDate } from "../../Utils/Date";
+import {
+  getUTCNoonDate,
+  formatDate,
+  isValidDate,
+  UTCNoonDateFromFormat
+} from "../../Utils/Date";
 import { useHistory } from "react-router-dom";
 
 function GameScores(props) {
   let history = useHistory();
-  const date = useMemo(() => {
-    const defaultDate = getUTCNoonDate(new Date());
-    try {
-      const newDate = props.match.params.date
-        ? new Date(props.match.params.date)
-        : getUTCNoonDate(new Date());
-      if (!isValidDate(newDate)) throw new Error("Invalid date in URL");
-      return newDate;
-    } catch (error) {
-      console.error(error);
-      history.push(`/GameScores/${formatDate(defaultDate)}`);
-      return defaultDate;
-    }
+  const dateString = useMemo(() => {
+    const newDateString = props.match.params.date
+      ? props.match.params.date
+      : formatDate(getUTCNoonDate(new Date()));
+    return newDateString;
   }, [props.match.params.date]);
   const [gameScores, setGameScores] = useState([]);
   const [isLoadingGameScores, setIsLoadingGameScores] = useState(false);
 
   useEffect(() => {
     const fetchGameScores = async () => {
-      console.log(`date: ${date.toISOString()}`);
       const gameScores = await API.graphql(
         graphqlOperation(queries.getGameScores, {
-          date: date.toISOString()
+          date: dateString
         })
       );
 
@@ -50,26 +46,26 @@ function GameScores(props) {
         console.error(error);
       })
       .finally(() => setIsLoadingGameScores(false));
-  }, [date]);
+  }, [dateString]);
 
   return (
     <div className={styles.container}>
       <h1>Game Scores</h1>
       <DatePicker
         onBackwardClick={() => {
-          const newDate = new Date(date);
+          const newDate = new Date(dateString);
           newDate.setDate(newDate.getDate() - 1);
           history.push(`/GameScores/${formatDate(newDate)}`);
         }}
         onForwardClick={() => {
-          const newDate = new Date(date);
+          const newDate = new Date(dateString);
           newDate.setDate(newDate.getDate() + 1);
           history.push(`/GameScores/${formatDate(newDate)}`);
         }}
         onDateChange={newDate => {
           history.push(`/GameScores/${formatDate(newDate)}`);
         }}
-        date={date}
+        date={UTCNoonDateFromFormat(dateString)}
       />
       <div className={styles.gameScoresContainer}>
         {isLoadingGameScores ? (

@@ -6,14 +6,33 @@ export const getUTCNoonDate = date => {
   return date;
 };
 
-export const formatDate = date => {
-  let month = "" + (date.getMonth() + 1),
-    day = "" + date.getDate(),
-    year = date.getFullYear();
+export function formatDate(d) {
+  let month = "" + (d.getUTCMonth() + 1),
+    day = "" + d.getUTCDate(),
+    year = d.getUTCFullYear();
 
-  return `${month}-${day}-${year}`;
-};
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  const formattedDate = [year, month, day].join("-");
+  console.log(`formatted date: ${formattedDate}`);
+  return formattedDate;
+}
 
 export function isValidDate(d) {
   return d instanceof Date && !isNaN(d);
+}
+
+export function UTCNoonDateFromFormat(dateString) {
+  const [year, month, day] = dateString.split("-");
+  const date = new Date(dateString);
+  date.setUTCFullYear(year);
+  date.setUTCMonth(month - 1);
+  date.setUTCDate(day);
+  date.setUTCHours(12, 0, 0, 0);
+  return date;
+}
+
+export function isValidFormattedDate(d) {
+  /* TODO */
 }

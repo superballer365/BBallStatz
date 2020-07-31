@@ -13,18 +13,13 @@ function formatDate(d) {
   return formattedDate;
 }
 
+function verifyDateFormat(date) {
+  /*TODO*/
+}
+
 const getGameScoresHandler = async ctx => {
-  let date = undefined;
-  try {
-    date = new Date(ctx.arguments.date);
-  } catch (error) {
-    throw new Error(
-      `Failed to parse supplied date with the following error: ${error.message}`
-    );
-  }
-  const url = `https://www.balldontlie.io/api/v1/games?start_date=${formatDate(
-    date
-  )}&end_date=${formatDate(date)}`;
+  let date = ctx.arguments.date;
+  const url = `https://www.balldontlie.io/api/v1/games?start_date=${date}&end_date=${date}`;
   const results = await axios.get(url);
   const gameScores = results.data.data.map(gameScore => ({
     id: gameScore.id,
