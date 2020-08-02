@@ -32,6 +32,19 @@ export const getGameScores = /* GraphQL */ `
     }
   }
 `;
+export const getBoxScore = /* GraphQL */ `
+  query GetBoxScore($gameId: String!) {
+    getBoxScore(gameId: $gameId) {
+      id
+      firstName
+      lastName
+      assists
+      blocks
+      points
+      rebounds
+    }
+  }
+`;
 export const getPlayer = /* GraphQL */ `
   query GetPlayer($id: ID!) {
     getPlayer(id: $id) {
