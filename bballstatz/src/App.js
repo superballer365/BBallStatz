@@ -5,6 +5,7 @@ import Home from "./Components/Home/Home";
 import PlayerStats from "./Components/PlayerStats/PlayerStats";
 import TeamStats from "./Components/TeamStats/TeamStats";
 import GameScores from "./Components/GameScores/GameScores";
+import BoxScore from "./Components/BoxScore/BoxScore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserAlt,
@@ -66,6 +67,7 @@ export default function App() {
               <Route path="/TeamStats" component={TeamStats} />
               <Route path="/GameScores" exact component={GameScores} />
               <Route path="/GameScores/:date" component={GameScores} />
+              <Route path="/BoxScore/:gameId" component={BoxScore} />
             </main>
           </div>
         )}

@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import Loader from "react-loader-spinner";
 import { getTeamLogo } from "../../Utils/Logos";
 import styles from "./GameScore.module.css";
+import { useHistory } from "react-router-dom";
 
 function TeamScore(props) {
   const { name, score } = props;
@@ -31,11 +32,19 @@ function GameScore(props) {
     awayScore,
     period,
     isOver,
-    postSeason
+    postSeason,
+    onScoreClick
   } = props.data;
+  const history = useHistory();
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        console.log("Clicked");
+        history.push(`/BoxScore/${id}`);
+      }}
+    >
       <div className={styles.period}>{isOver ? "Final" : `Q${period}`}</div>
       <TeamScore name={homeTeam.name} score={homeScore} />
       <TeamScore name={awayTeam.name} score={awayScore} />

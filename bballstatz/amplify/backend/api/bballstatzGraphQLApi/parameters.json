@@ -1,7 +1,5 @@
 {
   "AppSyncApiName": "bballstatzGraphQLApi",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": "false",
-  "CreateAPIKey": 1,
-  "APIKeyExpirationEpoch": 1627250625
+  "DynamoDBEnableServerSideEncryption": "false"
 }
