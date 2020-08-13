@@ -35,13 +35,51 @@ export const getGameScores = /* GraphQL */ `
 export const getBoxScore = /* GraphQL */ `
   query GetBoxScore($gameId: String!) {
     getBoxScore(gameId: $gameId) {
-      id
-      firstName
-      lastName
-      assists
-      blocks
-      points
-      rebounds
+      gameScore {
+        id
+        date
+        homeTeam {
+          id
+          abbreviation
+          city
+          conference
+          division
+          name
+          fullName
+        }
+        awayTeam {
+          id
+          abbreviation
+          city
+          conference
+          division
+          name
+          fullName
+        }
+        homeScore
+        awayScore
+        period
+        isOver
+        postSeason
+      }
+      homePlayerStatlines {
+        id
+        firstName
+        lastName
+        assists
+        blocks
+        points
+        rebounds
+      }
+      awayPlayerStatlines {
+        id
+        firstName
+        lastName
+        assists
+        blocks
+        points
+        rebounds
+      }
     }
   }
 `;
