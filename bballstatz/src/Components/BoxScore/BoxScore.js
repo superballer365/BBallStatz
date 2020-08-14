@@ -30,7 +30,7 @@ function BoxScore(props) {
     fetchBoxScore()
       .then(result => {
         setBoxScoreData(result);
-        setActiveTeam(result.gameScore.homeTeam.name);
+        setActiveTeam(result.gameScore.homeTeam.abbreviation);
       })
       .catch(error => {
         setBoxScoreData([]);
@@ -43,7 +43,7 @@ function BoxScore(props) {
     if (!boxScoreData) return [];
 
     const teamStatlines =
-      activeTeam === boxScoreData.gameScore.homeTeam.name
+      activeTeam === boxScoreData.gameScore.homeTeam.abbreviation
         ? boxScoreData.homePlayerStatlines
         : boxScoreData.awayPlayerStatlines;
 
@@ -60,17 +60,17 @@ function BoxScore(props) {
     <div className={styles.container}>
       <h1>Box Score</h1>
       <p>{`gameId ${gameId}`}</p>
-      <div>
-        {isLoadingBoxScore || !boxScoreData ? (
-          <Loader
-            style={{ marginTop: "50px" }}
-            type="TailSpin"
-            color="#00BFFF"
-            height={100}
-            width={100}
-          />
-        ) : (
-          <>
+      {isLoadingBoxScore || !boxScoreData ? (
+        <Loader
+          style={{ marginTop: "50px" }}
+          type="TailSpin"
+          color="#00BFFF"
+          height={100}
+          width={100}
+        />
+      ) : (
+        <>
+          <div className={styles.teamSelector}>
             <ToggleButtonGroup
               value={activeTeam}
               exclusive
@@ -78,17 +78,23 @@ function BoxScore(props) {
                 setActiveTeam(newActiveTeam);
               }}
             >
-              <ToggleButton value={boxScoreData.gameScore.homeTeam.name}>
-                {boxScoreData.gameScore.homeTeam.name}
+              <ToggleButton
+                value={boxScoreData.gameScore.homeTeam.abbreviation}
+              >
+                {boxScoreData.gameScore.homeTeam.abbreviation}
               </ToggleButton>
-              <ToggleButton value={boxScoreData.gameScore.awayTeam.name}>
-                {boxScoreData.gameScore.awayTeam.name}
+              <ToggleButton
+                value={boxScoreData.gameScore.awayTeam.abbreviation}
+              >
+                {boxScoreData.gameScore.awayTeam.abbreviation}
               </ToggleButton>
             </ToggleButtonGroup>
+          </div>
+          <div className={styles.tableContainer}>
             <BoxScoreTable data={getTableData()} />
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

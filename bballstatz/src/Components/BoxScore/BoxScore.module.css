@@ -1,4 +1,20 @@
 .container {
   display: grid;
   justify-content: center;
+  justify-items: center;
+  height: 100%;
+}
+
+.selectorAndTableContainer {
+  display: grid;
+  justify-items: center;
+}
+
+.teamSelector {
+  margin-bottom: 10px;
+}
+
+.tableContainer {
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
