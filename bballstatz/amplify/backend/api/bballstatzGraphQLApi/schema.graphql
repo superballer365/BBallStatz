@@ -34,7 +34,13 @@ type GameScore {
   postSeason: Boolean!
 }
 
-type PlayerBoxScore {
+type BoxScore {
+  gameScore: GameScore!
+  homePlayerStatlines: [PlayerStatline]!
+  awayPlayerStatlines: [PlayerStatline]!
+}
+
+type PlayerStatline {
   id: ID!
   firstName: String!
   lastName: String!
@@ -46,5 +52,5 @@ type PlayerBoxScore {
 
 type Query {
   getGameScores(date: String!): [GameScore]! @function(name: "gameScoreFunctionResolver-${env}")
-  getBoxScore(gameId: String!): [PlayerBoxScore]! @function(name: "boxScoreFunctionResolver-${env}")
+  getBoxScore(gameId: String!): BoxScore! @function(name: "boxScoreFunctionResolver-${env}")
 }
