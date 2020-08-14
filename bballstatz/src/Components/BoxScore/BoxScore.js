@@ -8,6 +8,7 @@ import { useTable } from "react-table";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import BoxScoreTable from "./BoxScoreTable";
+import BoxScoreHeader from "./BoxScoreHeader";
 
 function BoxScore(props) {
   const gameId = props.match.params.gameId;
@@ -58,8 +59,6 @@ function BoxScore(props) {
 
   return (
     <div className={styles.container}>
-      <h1>Box Score</h1>
-      <p>{`gameId ${gameId}`}</p>
       {isLoadingBoxScore || !boxScoreData ? (
         <Loader
           style={{ marginTop: "50px" }}
@@ -70,6 +69,7 @@ function BoxScore(props) {
         />
       ) : (
         <>
+          <BoxScoreHeader data={boxScoreData.gameScore} />
           <div className={styles.teamSelector}>
             <ToggleButtonGroup
               value={activeTeam}

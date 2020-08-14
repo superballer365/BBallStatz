@@ -1,0 +1,29 @@
+.container {
+  margin: 20px;
+  margin-bottom: 0px;
+  display: flex;
+}
+
+.teamScoreContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.teamScore {
+  text-align: center;
+}
+
+.teamLogoContainer {
+  height: 150px;
+  width: 150px;
+  display: inline-grid;
+  align-content: center;
+  justify-content: center;
+}
+
+.img {
+  max-height: 150px;
+  max-width: 150px;
+}
