@@ -16,14 +16,13 @@
 }
 
 .teamLogoContainer {
-  height: 150px;
-  width: 150px;
+  height: 110px;
   display: inline-grid;
   align-content: center;
   justify-content: center;
+  margin: 5px;
 }
 
 .img {
-  max-height: 150px;
-  max-width: 150px;
+  max-height: 110px;
 }
