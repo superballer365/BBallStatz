@@ -9,10 +9,9 @@ import Loader from "react-loader-spinner";
 import { useHistory } from "react-router-dom";
 
 function PlayerStats(props) {
-  const playerIds = props.match.params.playerIds
+  let playerIds = props.match.params.playerIds
     ? JSON.parse(props.match.params.playerIds)
-    : [];
-  console.log(playerIds);
+    : ["0"];
   const [players, setPlayers] = useState(undefined);
   const [loadingPlayers, setLoadingPlayers] = useState(true);
   const history = useHistory();
@@ -32,11 +31,11 @@ function PlayerStats(props) {
   }, []);
 
   const onAddPlayer = () => {
-    //setSelectedPlayers(selectedPlayers.concat({ id: uuidv4() }));
+    playerIds.push("0");
+    history.push(`/PlayerStats/${JSON.stringify(playerIds)}`);
   };
 
   const onPlayerChange = (oldPlayerId, newPlayerId) => {
-    console.log(`changing from player ${oldPlayerId} to ${newPlayerId}`);
     const index = playerIds.indexOf(oldPlayerId);
 
     if (index !== -1) {
@@ -45,9 +44,9 @@ function PlayerStats(props) {
     }
   };
 
-  const onRemovePlayerClick = listId => {
-    console.log(`removing playerz ${listId}`);
-    //setSelectedPlayers(selectedPlayers.filter(player => player.id !== listId));
+  const onRemovePlayerClick = playerIdToRemove => {
+    playerIds = playerIds.filter(id => id !== playerIdToRemove);
+    history.push(`/PlayerStats/${JSON.stringify(playerIds)}`);
   };
 
   return (
