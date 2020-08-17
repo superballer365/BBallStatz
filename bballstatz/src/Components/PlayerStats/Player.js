@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import styles from "./Player.module.css";
 import BlankPlayer from "../../Images/BlankPlayer.png";
 import { API, graphqlOperation } from "aws-amplify";
@@ -13,16 +13,20 @@ function round(num) {
 }
 
 function Player(props) {
-  const [player, setPlayer] = useState(undefined);
+  const { players, selectedPlayerId } = props;
+  const isPlayerSelected = selectedPlayerId !== 0;
+  const selectedPlayer = useMemo(
+    () => players.find(player => player.id === selectedPlayerId),
+    [players]
+  );
   const [stats, setStats] = useState(undefined);
   const [loadingStats, setLoadingStats] = useState(true);
-  const { players } = props;
 
   useEffect(() => {
     const fetchPlayerStats = async () => {
       setLoadingStats(true);
       const playerStats = await API.graphql(
-        graphqlOperation(queries.getPlayer, { id: player.id })
+        graphqlOperation(queries.getPlayer, { id: selectedPlayerId })
       );
       setStats({
         ...playerStats.data.getPlayer.perGameStats,
@@ -31,10 +35,10 @@ function Player(props) {
       setLoadingStats(false);
     };
 
-    if (player && player.id) {
+    if (isPlayerSelected) {
       fetchPlayerStats();
     }
-  }, [player]);
+  }, [selectedPlayerId, isPlayerSelected]);
 
   return (
     <div className={styles.container}>
@@ -48,10 +52,12 @@ function Player(props) {
           X
         </Button>
         <img
-          className={player ? styles.playerImage : styles.blankPlayerImage}
+          className={
+            selectedPlayer ? styles.playerImage : styles.blankPlayerImage
+          }
           src={
-            player
-              ? `https://nba-players.herokuapp.com/players/${player.lastName}/${player.firstName}`
+            selectedPlayer
+              ? `https://nba-players.herokuapp.com/players/${selectedPlayer.lastName}/${selectedPlayer.firstName}`
               : BlankPlayer
           }
         />
@@ -59,21 +65,29 @@ function Player(props) {
 
       <Autocomplete
         options={players}
-        getOptionLabel={player => `${player.firstName} ${player.lastName}`}
+        getOptionLabel={selectedPlayer =>
+          `${selectedPlayer.firstName} ${selectedPlayer.lastName}`
+        }
+        defaultValue={selectedPlayer}
         renderInput={params => (
           <TextField
             {...params}
-            label={player ? "selected player" : "select a player..."}
+            value={
+              selectedPlayer
+                ? `${selectedPlayer.firstName} ${selectedPlayer.lastName}`
+                : ""
+            }
+            label={selectedPlayer ? "selected player" : "select a player..."}
             margin="normal"
           />
         )}
         blurOnSelect
         onChange={(event, newInputValue) => {
           newInputValue &&
-            setPlayer(players.find(player => player.id === newInputValue.id));
+            console.log("selected player with id: " + newInputValue.id);
         }}
       />
-      {loadingStats && player ? (
+      {loadingStats && selectedPlayer ? (
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : (
         stats && (

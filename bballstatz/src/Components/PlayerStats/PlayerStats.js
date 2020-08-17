@@ -15,10 +15,13 @@ function uuidv4() {
   });
 }
 
-function PlayerStats() {
-  const [players, setPlayers] = useState([]);
-  const [selectedPlayers, setSelectedPlayers] = useState([{ id: uuidv4() }]);
-  const [loadingPlayers, setLoadingPlayers] = useState(false);
+function PlayerStats(props) {
+  const playerIds = props.match.params.playerIds
+    ? JSON.parse(props.match.params.playerIds)
+    : [];
+  console.log(playerIds);
+  const [players, setPlayers] = useState(undefined);
+  const [loadingPlayers, setLoadingPlayers] = useState(true);
 
   useEffect(() => {
     const fetchPlayerData = async () => {
@@ -28,19 +31,19 @@ function PlayerStats() {
           limit: 1000
         })
       );
-      setLoadingPlayers(false);
       setPlayers(players.data.listPlayers.items);
+      setLoadingPlayers(false);
     };
     fetchPlayerData();
   }, []);
 
   const onAddPlayer = () => {
-    setSelectedPlayers(selectedPlayers.concat({ id: uuidv4() }));
+    //setSelectedPlayers(selectedPlayers.concat({ id: uuidv4() }));
   };
 
   const onRemovePlayerClick = listId => {
     console.log(`removing playerz ${listId}`);
-    setSelectedPlayers(selectedPlayers.filter(player => player.id !== listId));
+    //setSelectedPlayers(selectedPlayers.filter(player => player.id !== listId));
   };
 
   return (
@@ -50,10 +53,11 @@ function PlayerStats() {
         <Loader type="TailSpin" color="#00BFFF" height={100} width={100} />
       ) : (
         <div className={styles.players}>
-          {selectedPlayers.map(player => (
+          {playerIds.map(id => (
             <Player
-              key={player.id}
-              listId={player.id}
+              key={id}
+              listId={id}
+              selectedPlayerId={id}
               onRemovePlayer={onRemovePlayerClick}
               players={players.sort((playerA, playerB) =>
                 playerA.firstName > playerB.firstName ? 1 : -1
