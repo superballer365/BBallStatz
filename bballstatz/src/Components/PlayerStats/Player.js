@@ -13,8 +13,8 @@ function round(num) {
 }
 
 function Player(props) {
-  const { players, selectedPlayerId } = props;
-  const isPlayerSelected = selectedPlayerId !== 0;
+  const { players, selectedPlayerId, onPlayerChange } = props;
+  const isPlayerSelected = selectedPlayerId !== "0";
   const selectedPlayer = useMemo(
     () => players.find(player => player.id === selectedPlayerId),
     [players]
@@ -72,19 +72,13 @@ function Player(props) {
         renderInput={params => (
           <TextField
             {...params}
-            value={
-              selectedPlayer
-                ? `${selectedPlayer.firstName} ${selectedPlayer.lastName}`
-                : ""
-            }
             label={selectedPlayer ? "selected player" : "select a player..."}
             margin="normal"
           />
         )}
         blurOnSelect
         onChange={(event, newInputValue) => {
-          newInputValue &&
-            console.log("selected player with id: " + newInputValue.id);
+          newInputValue && onPlayerChange(selectedPlayerId, newInputValue.id);
         }}
       />
       {loadingStats && selectedPlayer ? (
