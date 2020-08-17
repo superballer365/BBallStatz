@@ -14,13 +14,14 @@ function BoxScoreHeader(props) {
         </div>
         <div className={styles.teamScore}>
           <p>{props.data.homeScore}</p>
-          <p>{props.data.homeTeam.name}</p>
         </div>
+      </div>
+      <div className={styles.gameStatusContainer}>
+        {props.data.isOver ? "Final" : `Q${props.data.period}`}
       </div>
       <div className={styles.teamScoreContainer}>
         <div className={styles.teamScore}>
           <p>{props.data.awayScore}</p>
-          <p>{props.data.awayTeam.name}</p>
         </div>
         <div className={styles.teamLogoContainer}>
           <img
