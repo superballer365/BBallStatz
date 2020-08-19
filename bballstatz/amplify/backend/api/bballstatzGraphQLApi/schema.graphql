@@ -35,19 +35,32 @@ type GameScore {
 }
 
 type BoxScore {
-  gameScore: GameScore!
+  gameScore: GameScore
   homePlayerStatlines: [PlayerStatline]!
   awayPlayerStatlines: [PlayerStatline]!
 }
 
 type PlayerStatline {
   id: ID!
+  minutes: String!
   firstName: String!
   lastName: String!
-  assists: Float!
-  blocks: Float!
-  points: Float!
-  rebounds: Float!
+  assists: Int!
+  blocks: Int
+  points: Int
+  rebounds: Int
+  steals: Int
+  turnovers: Int
+  threesAttempted: Float
+  threesMade: Int
+  threePercentage: Float
+  fieldGoalsAttempted: Int!
+  fieldGoalsMade: Int!
+  fieldGoalPercentage: Float!
+  freethrowsAttempted: Int!
+  freethrowsMade: Int!
+  freethrowPercentage: Float!
+  fouls: Int!
 }
 
 type Query {

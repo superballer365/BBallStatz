@@ -1,16 +1,28 @@
 const axios = require("axios");
 
 const getPlayerStatlinesForTeam = (teamId, data) => {
-  console.log(teamId);
   const teamPlayers = data.filter(player => player.team.id === teamId);
   return teamPlayers.map(teamPlayer => ({
     id: teamPlayer.player.id,
     firstName: teamPlayer.player.first_name,
     lastName: teamPlayer.player.last_name,
+    minutes: teamPlayer.min,
     assists: teamPlayer.ast,
     blocks: teamPlayer.blk,
     points: teamPlayer.pts,
-    rebounds: teamPlayer.reb
+    rebounds: teamPlayer.reb,
+    steals: teamPlayer.stl,
+    turnovers: teamPlayer.turnover,
+    threesAttempted: teamPlayer.fg3a,
+    threesMade: teamPlayer.fg3m,
+    threePercentage: teamPlayer.fg3_pct,
+    fieldGoalsAttempted: teamPlayer.fga,
+    fieldGoalsMade: teamPlayer.fgm,
+    fieldGoalPercentage: teamPlayer.fg_pct,
+    freethrowsAttempted: teamPlayer.fta,
+    freethrowsMade: teamPlayer.ftm,
+    freethrowPercentage: teamPlayer.ft_pct,
+    fouls: teamPlayer.pf
   }));
 };
 

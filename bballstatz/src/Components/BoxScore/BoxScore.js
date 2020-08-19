@@ -48,13 +48,13 @@ function BoxScore(props) {
         ? boxScoreData.homePlayerStatlines
         : boxScoreData.awayPlayerStatlines;
 
-    return teamStatlines.map(playerStatline => ({
-      name: `${playerStatline.firstName.charAt(0)}. ${playerStatline.lastName}`,
-      points: playerStatline.points,
-      rebounds: playerStatline.rebounds,
-      assists: playerStatline.assists,
-      blocks: playerStatline.blocks
-    }));
+    return teamStatlines.map(playerStatline => {
+      const { firstName, lastName, ...data } = playerStatline;
+      return {
+        name: `${firstName.charAt(0)}. ${lastName}`,
+        ...data
+      };
+    });
   }, [boxScoreData, activeTeam]);
 
   return (

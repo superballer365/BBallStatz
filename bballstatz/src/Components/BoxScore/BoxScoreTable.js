@@ -9,6 +9,10 @@ function BoxScoreTable(props) {
         accessor: "name"
       },
       {
+        Header: "MIN",
+        accessor: "minutes"
+      },
+      {
         Header: "PTS",
         accessor: "points"
       },
@@ -23,6 +27,50 @@ function BoxScoreTable(props) {
       {
         Header: "BLK",
         accessor: "blocks"
+      },
+      {
+        Header: "FGM",
+        accessor: "fieldGoalsMade"
+      },
+      {
+        Header: "FGA",
+        accessor: "fieldGoalsAttempted"
+      },
+      {
+        Header: "FG%",
+        accessor: "fieldGoalPercentage"
+      },
+      {
+        Header: "FTM",
+        accessor: "freethrowsMade"
+      },
+      {
+        Header: "FTA",
+        accessor: "freethrowsAttempted"
+      },
+      {
+        Header: "FT%",
+        accessor: "freethrowPercentage"
+      },
+      {
+        Header: "3PM",
+        accessor: "threesMade"
+      },
+      {
+        Header: "3PA",
+        accessor: "threesAttempted"
+      },
+      {
+        Header: "3P%",
+        accessor: "threePercentage"
+      },
+      {
+        Header: "TOV",
+        accessor: "turnovers"
+      },
+      {
+        Header: "PF",
+        accessor: "fouls"
       }
     ],
     []

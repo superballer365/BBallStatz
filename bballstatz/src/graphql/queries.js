@@ -64,21 +64,47 @@ export const getBoxScore = /* GraphQL */ `
       }
       homePlayerStatlines {
         id
+        minutes
         firstName
         lastName
         assists
         blocks
         points
         rebounds
+        steals
+        turnovers
+        threesAttempted
+        threesMade
+        threePercentage
+        fieldGoalsAttempted
+        fieldGoalsMade
+        fieldGoalPercentage
+        freethrowsAttempted
+        freethrowsMade
+        freethrowPercentage
+        fouls
       }
       awayPlayerStatlines {
         id
+        minutes
         firstName
         lastName
         assists
         blocks
         points
         rebounds
+        steals
+        turnovers
+        threesAttempted
+        threesMade
+        threePercentage
+        fieldGoalsAttempted
+        fieldGoalsMade
+        fieldGoalPercentage
+        freethrowsAttempted
+        freethrowsMade
+        freethrowPercentage
+        fouls
       }
     }
   }
