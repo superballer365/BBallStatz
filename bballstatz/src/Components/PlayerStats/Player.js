@@ -7,10 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
 import Loader from "react-loader-spinner";
-
-function round(num) {
-  return Math.round(num * 10) / 10;
-}
+import { round } from "../../Utils/Number";
 
 function Player(props) {
   const { players, selectedPlayerId, onPlayerChange } = props;

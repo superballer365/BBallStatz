@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 import { useTable } from "react-table";
+import styles from "./BoxScoreTable.module.css";
+import classNames from "classnames";
 
 function BoxScoreTable(props) {
   const columns = useMemo(
@@ -38,7 +40,8 @@ function BoxScoreTable(props) {
       },
       {
         Header: "FG%",
-        accessor: "fieldGoalPercentage"
+        accessor: "fieldGoalPercentage",
+        Cell: ({ value }) => value.toFixed(1)
       },
       {
         Header: "FTM",
@@ -50,7 +53,8 @@ function BoxScoreTable(props) {
       },
       {
         Header: "FT%",
-        accessor: "freethrowPercentage"
+        accessor: "freethrowPercentage",
+        Cell: ({ value }) => value.toFixed(1)
       },
       {
         Header: "3PM",
@@ -62,7 +66,8 @@ function BoxScoreTable(props) {
       },
       {
         Header: "3P%",
-        accessor: "threePercentage"
+        accessor: "threePercentage",
+        Cell: ({ value }) => value.toFixed(1)
       },
       {
         Header: "TOV",
@@ -93,12 +98,10 @@ function BoxScoreTable(props) {
             {headerGroup.headers.map(column => (
               <th
                 {...column.getHeaderProps()}
-                style={{
-                  borderBottom: "solid 3px red",
-                  background: "aliceblue",
-                  color: "black",
-                  fontWeight: "bold"
-                }}
+                className={classNames(
+                  styles.defaultHeader,
+                  getHeaderClass(column)
+                )}
               >
                 {column.render("Header")}
               </th>
@@ -115,11 +118,10 @@ function BoxScoreTable(props) {
                 return (
                   <td
                     {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 1px gray",
-                      background: "papayawhip"
-                    }}
+                    className={classNames(
+                      styles.commonCell,
+                      getCellClass(cell)
+                    )}
                   >
                     {cell.render("Cell")}
                   </td>
@@ -131,6 +133,26 @@ function BoxScoreTable(props) {
       </tbody>
     </table>
   );
+}
+
+function getCellClass(cell) {
+  switch (cell.column.Header) {
+    case "Name":
+      return styles.nameCell;
+    default:
+      return styles.cell;
+  }
+}
+
+function getHeaderClass(column) {
+  switch (column.Header) {
+    case "Name":
+      return styles.nameHeader;
+    case "Min":
+      return styles.minutes;
+    default:
+      return styles.smallHeader;
+  }
 }
 
 export default BoxScoreTable;

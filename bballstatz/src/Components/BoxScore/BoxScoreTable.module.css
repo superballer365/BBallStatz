@@ -1,0 +1,32 @@
+.nameHeader {
+  min-width: 130px;
+}
+
+.minutesHeader {
+  min-width: 60px;
+}
+
+.smallHeader {
+  min-width: 45px;
+}
+
+.defaultHeader {
+  border-bottom: 3px solid red;
+  background: aliceblue;
+  color: black;
+  font-weight: bold;
+}
+
+.nameCell {
+  text-align: left;
+}
+
+.cell {
+  text-align: center;
+}
+
+.commonCell {
+  padding: 10px;
+  border: 1px solid gray;
+  background: papayawhip;
+}
