@@ -2,13 +2,15 @@ import React, { useMemo } from "react";
 import { useTable } from "react-table";
 import styles from "./BoxScoreTable.module.css";
 import classNames from "classnames";
+import { useSticky } from "react-table-sticky";
 
 function BoxScoreTable(props) {
   const columns = useMemo(
     () => [
       {
         Header: "Name",
-        accessor: "name"
+        accessor: "name",
+        sticky: "left"
       },
       {
         Header: "MIN",
@@ -81,7 +83,7 @@ function BoxScoreTable(props) {
     []
   );
 
-  const tableInstance = useTable({ columns, data: props.data });
+  const tableInstance = useTable({ columns, data: props.data }, useSticky);
   const {
     getTableProps,
     getTableBodyProps,
