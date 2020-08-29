@@ -4,7 +4,7 @@ import * as queries from "../../graphql/queries";
 import GameScore from "./GameScore";
 import * as customQueries from "../../graphql/customQueries";
 import DatePicker from "../Common/DatePicker/DatePicker";
-import Loader from "react-loader-spinner";
+import Loading from "../Common/Loading/Loading";
 import styles from "./GameScores.module.css";
 import {
   getUTCNoonDate,
@@ -69,12 +69,10 @@ function GameScores(props) {
       />
       <div className={styles.gameScoresContainer}>
         {isLoadingGameScores ? (
-          <Loader
-            style={{ marginTop: "50px" }}
-            type="TailSpin"
-            color="#00BFFF"
-            height={100}
-            width={100}
+          <Loading
+            marginTop={50}
+            size="medium"
+            message="Loading game scores..."
           />
         ) : gameScores.length > 0 ? (
           gameScores.map(gameScore => (

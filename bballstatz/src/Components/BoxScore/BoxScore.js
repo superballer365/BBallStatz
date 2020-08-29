@@ -2,9 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import styles from "./BoxScore.module.css";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../../graphql/queries";
-import Button from "@material-ui/core/Button";
-import Loader from "react-loader-spinner";
-import { useTable } from "react-table";
+import Loading from "../Common/Loading/Loading";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import BoxScoreTable from "./BoxScoreTable";
@@ -60,13 +58,7 @@ function BoxScore(props) {
   return (
     <div className={styles.container}>
       {isLoadingBoxScore || !boxScoreData ? (
-        <Loader
-          style={{ marginTop: "50px" }}
-          type="TailSpin"
-          color="#00BFFF"
-          height={100}
-          width={100}
-        />
+        <Loading marginTop={100} size="medium" message="Loading box score..." />
       ) : (
         <>
           <BoxScoreHeader data={boxScoreData.gameScore} />
