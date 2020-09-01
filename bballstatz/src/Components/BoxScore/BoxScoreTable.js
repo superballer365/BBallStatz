@@ -1,12 +1,19 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
+import { useTable, useRowSelect } from "react-table";
 import styles from "./BoxScoreTable.module.css";
 import classNames from "classnames";
 import { useSticky } from "react-table-sticky";
+import { useHistory } from "react-router-dom";
 
 function BoxScoreTable(props) {
+  const history = useHistory();
+
   const columns = useMemo(
     () => [
+      {
+        Header: "ID",
+        accessor: "playerId"
+      },
       {
         Header: "Name",
         accessor: "name",
@@ -83,13 +90,24 @@ function BoxScoreTable(props) {
     []
   );
 
-  const tableInstance = useTable({ columns, data: props.data }, useSticky);
+  const tableInstance = useTable(
+    {
+      columns,
+      data: props.data,
+      initialState: {
+        hiddenColumns: ["playerId"]
+      }
+    },
+    useSticky,
+    useRowSelect
+  );
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
-    prepareRow
+    prepareRow,
+    selectedRowIds
   } = tableInstance;
 
   return (
@@ -115,7 +133,10 @@ function BoxScoreTable(props) {
         {rows.map(row => {
           prepareRow(row);
           return (
-            <tr {...row.getRowProps()}>
+            <tr
+              {...row.getRowProps()}
+              onClick={() => redirectToSelectedPlayer(row, history)}
+            >
               {row.cells.map(cell => {
                 return (
                   <td
@@ -155,6 +176,13 @@ function getHeaderClass(column) {
     default:
       return styles.smallHeader;
   }
+}
+
+function redirectToSelectedPlayer(row, history) {
+  const selectedPlayerId = row.values.playerId;
+  if (!selectedPlayerId) return;
+
+  history.push(`/PlayerStats/["${selectedPlayerId}"]`);
 }
 
 export default BoxScoreTable;

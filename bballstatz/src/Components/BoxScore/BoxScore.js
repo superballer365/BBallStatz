@@ -47,9 +47,10 @@ function BoxScore(props) {
         : boxScoreData.awayPlayerStatlines;
 
     return teamStatlines.map(playerStatline => {
-      const { firstName, lastName, ...data } = playerStatline;
+      const { firstName, lastName, id, ...data } = playerStatline;
       return {
         name: `${firstName.charAt(0)}. ${lastName}`,
+        playerId: id,
         ...data
       };
     });
