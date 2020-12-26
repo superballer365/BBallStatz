@@ -65,5 +65,5 @@ type PlayerStatline {
 
 type Query {
   getGameScores(date: String!): [GameScore]! @function(name: "gameScoreFunctionResolver-${env}")
-  getBoxScore(gameId: String!): BoxScore! @function(name: "boxScoreFunctionResolver-${env}")
+  getBoxScore(gameId: String!): BoxScore @function(name: "boxScoreFunctionResolver-${env}")
 }
